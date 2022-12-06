@@ -5,19 +5,25 @@ on:
     - cron: "*/15 * * * *" # Every Monday at 02:00 AM UTC (10:00 AM AEST)
 
 jobs:
+
   create-rc-branch:
+  
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v3
+    
+      - name: Checkout Master Branch
+        uses: actions/checkout@v3
         with:
           ref: "master"
-      - run: |
-          git config --local user.email "github@faiths.io"
-          git config --local user.name "GitHub Actions - RC Automation"
+          
       - name: Set the weekly branch name in Environment
         run: echo "name=rc/$(date +'%Y.%U.%H.%M').0" >> $GITHUB_ENV
+        
       - name: Create RC Branch from Master
         run: |
+          git config --local user.email "github@faiths.io"
+          git config --local user.name "GitHub Actions - RC Automation"
           git checkout -b ${{ env.name }}
           git push --set-upstream origin \
             ${{ env.name }}
