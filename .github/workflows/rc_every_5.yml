@@ -1,6 +1,6 @@
 on:
   schedule:
-    - cron: "*/5 * * * *" # Every Monday at 02:00 AM UTC (10:00 AM AEST)
+    - cron: "* * * * *" # Every Monday at 02:00 AM UTC (10:00 AM AEST)
 
 jobs:
   nightly-build:
