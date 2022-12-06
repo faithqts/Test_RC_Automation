@@ -33,8 +33,8 @@ jobs:
         uses: simbo/msteams-message-card-action@v1
         with:
           webhook: ${{ secrets.MSTEAMS_WEBHOOK }}
-          title: Automated RC Branch ${{ env.name }} created for ${{ github.repository }}
-          message: The automated rc branch creation job has complete.
-          color: ff69b4
+          title: Automated RC Branch Job Completed
+          message: The RC Branch for ${{ github.repository }} this week is <strong>${{ env.name }}</strong>
+          color: 418ff0
           buttons: |
             View on GitHub https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
