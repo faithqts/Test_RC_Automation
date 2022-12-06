@@ -42,3 +42,4 @@ jobs:
           buttons: |
             View Job https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
             View Branch https://github.com/${{ github.repository }}/tree/${{ env.name }}
+            View Repository https://github.com/${{ github.repository }}
