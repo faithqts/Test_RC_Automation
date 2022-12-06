@@ -1,0 +1,22 @@
+
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # Every Monday at 02:00 AM UTC (10:00 AM AEST)
+
+jobs:
+  nightly-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: "main"
+      - run: |
+          git config --local user.email "github@faiths.io"
+          git config --local user.name "GitHub Actions - RC Automation"
+      - id: vars
+        run: echo "::set-output name=date::$(date +'%Y.%U.%H.%M')"
+      - run: |
+          git checkout -b rc/${{ steps.vars.outputs.date }}.0
+          git push --set-upstream origin \
+            rc/${{ steps.vars.outputs.date }}.0
