@@ -15,8 +15,8 @@ jobs:
           git config --local user.email "github@faiths.io"
           git config --local user.name "GitHub Actions - RC Automation"
       - id: vars
-        run: echo "::set-output name=date::$(date +'%Y.%U.%H.%M')"
+        run: echo "name=$(date +'%Y.%U.%H.%M')" >> $GITHUB_ENV
       - run: |
-          git checkout -b rc/${{ steps.vars.outputs.date }}.0
+          git checkout -b rc/${{ env.name }}.0
           git push --set-upstream origin \
-            rc/${{ steps.vars.outputs.date }}.0
+            rc/${{ env.name }}.0
