@@ -1,9 +1,11 @@
+name: Automated RC Build
+
 on:
   schedule:
     - cron: "* * * * *" # Every Monday at 02:00 AM UTC (10:00 AM AEST)
 
 jobs:
-  nightly-build:
+  create-rc-branch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
