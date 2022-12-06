@@ -37,9 +37,12 @@ jobs:
     
     steps:
     
-    - name: Send a Notification
-      id: notify
-      uses: thechetantalwar/teams-notify@v2
-      with:
-        teams_webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
-        message: "Automated RC Branch (${{ env.name }}) has Completed for ${{ github.repository }} and the outcome is ${{ needs.build.result }}."
+      - name: Send MS Teams Notification
+        uses: simbo/msteams-message-card-action@v1
+        with:
+          webhook: ${{ secrets.MSTEAMS_WEBHOOK }}
+          title: Automated RC Branch (${{ env.name }}) created for ${{ github.repository }}
+          message: The automated job has completed with the outcome of ${{ needs.build.result }}.
+          color: ff69b4
+          buttons: |
+            View on GitHub https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
