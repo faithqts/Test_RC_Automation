@@ -8,15 +8,17 @@ jobs:
   create-rc-branch:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Master
       - uses: actions/checkout@v3
         with:
           ref: "master"
       - run: |
           git config --local user.email "github@faiths.io"
           git config --local user.name "GitHub Actions - RC Automation"
-      - id: vars
-        run: echo "name=$(date +'%Y.%U.%H.%M')" >> $GITHUB_ENV
+      - name: Set the weekly branch name in Environment
+        run: echo "name=rc/$(date +'%Y.%U.%H.%M').0" >> $GITHUB_ENV
+      - name: Create RC Branch from Master
       - run: |
-          git checkout -b rc/${{ env.name }}.0
+          git checkout -b ${{ env.name }}
           git push --set-upstream origin \
-            rc/${{ env.name }}.0
+            ${{ env.name }}
