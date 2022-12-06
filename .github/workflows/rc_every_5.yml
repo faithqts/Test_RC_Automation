@@ -18,7 +18,7 @@ jobs:
       - name: Set the weekly branch name in Environment
         run: echo "name=rc/$(date +'%Y.%U.%H.%M').0" >> $GITHUB_ENV
       - name: Create RC Branch from Master
-      - run: |
+        run: |
           git checkout -b ${{ env.name }}
           git push --set-upstream origin \
             ${{ env.name }}
