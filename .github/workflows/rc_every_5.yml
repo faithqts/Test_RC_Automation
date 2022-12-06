@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  create-rc-branch:
+  build-rc-branch:
   
     runs-on: ubuntu-latest
     
@@ -28,3 +28,16 @@ jobs:
           git checkout -b ${{ env.name }}
           git push --set-upstream origin \
             ${{ env.name }}
+
+  notify:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: build-rc-branch
+    steps:
+    - name: Send a Notification
+      id: notify
+      uses: thechetantalwar/teams-notify@v2
+      with:
+        teams_webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+        message: "Github Action Build Number ${{ github.run_number }} Completed for ${{ github.repository }} and the outcome is  ${{ needs.build.result }}."
+        
