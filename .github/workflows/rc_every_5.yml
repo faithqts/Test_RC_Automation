@@ -30,14 +30,16 @@ jobs:
             ${{ env.name }}
 
   notify:
+  
     runs-on: ubuntu-latest
     if: always()
     needs: build-rc-branch
+    
     steps:
+    
     - name: Send a Notification
       id: notify
       uses: thechetantalwar/teams-notify@v2
       with:
         teams_webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
         message: "Automated RC Branch (${{ env.name }}) has Completed for ${{ github.repository }} and the outcome is ${{ needs.build.result }}."
-        
