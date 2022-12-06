@@ -6,7 +6,7 @@ on:
     - cron: "*/15 * * * *" # Every Monday at 02:00 AM UTC (10:00 AM AEST)
 
 env:
-  application: OC
+  application: Offer Configurator
 
 jobs:
 
@@ -36,8 +36,8 @@ jobs:
         uses: simbo/msteams-message-card-action@v1
         with:
           webhook: ${{ secrets.MSTEAMS_WEBHOOK }}
-          title: ${{ env.application }} Automated RC Branch Completed
-          message: The RC Branch for <strong>${{ github.repository }}</strong> this week is <strong>${{ env.name }}</strong>
+          title: Automated RC Branch Completed
+          message: <strong>Application:</strong>&#9;${{ env.application }}<br><strong>Project:</strong>&#9;${{ github.repository }}<br><strong>RC Branch:</strong>&#9;${{ env.name }}
           color: 418ff0
           buttons: |
             View Job https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
