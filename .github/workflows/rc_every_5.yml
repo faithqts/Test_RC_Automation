@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: "master"
-          
+       
       - name: Set the weekly branch name in Environment
         run: echo "name=rc/$(date +'%Y.%U.%H.%M').0" >> $GITHUB_ENV
         
@@ -28,21 +28,13 @@ jobs:
           git checkout -b ${{ env.name }}
           git push --set-upstream origin \
             ${{ env.name }}
-
-  notify:
-  
-    runs-on: ubuntu-latest
-    if: always()
-    needs: build-rc-branch
-    
-    steps:
     
       - name: Send MS Teams Notification
         uses: simbo/msteams-message-card-action@v1
         with:
           webhook: ${{ secrets.MSTEAMS_WEBHOOK }}
           title: Automated RC Branch (${{ env.name }}) created for ${{ github.repository }}
-          message: The automated job has completed with the outcome of ${{ needs.build.result }}.
+          message: The automated job has completed with the outcome of ${{ needs.build-rc-branch.result }}.
           color: ff69b4
           buttons: |
             View on GitHub https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
