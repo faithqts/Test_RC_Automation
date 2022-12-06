@@ -37,7 +37,7 @@ jobs:
         with:
           webhook: ${{ secrets.MSTEAMS_WEBHOOK }}
           title: 🛠 Automated RC Branch Created
-          message: <table><tr><td><strong>Application:</strong></td><td>{{ env.application }}</td></tr><tr><td><strong>Project:</strong></td><td>${{ github.repository }}</td></tr><tr><td><strong>RC Branch:</strong></td><td>${{ env.name }}</td></tr></table>
+          message: <table><tr><td><strong>Application:</strong></td><td>${{ env.application }}</td></tr><tr><td><strong>Project:</strong></td><td>${{ github.repository }}</td></tr><tr><td><strong>RC Branch:</strong></td><td>${{ env.name }}</td></tr></table>
           color: 418ff0
           buttons: |
             View Job https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
